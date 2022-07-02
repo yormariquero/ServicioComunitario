@@ -86,14 +86,8 @@ class StudentResource extends Resource
                         ]),
                     Forms\Components\Toggle::make('embarazo')
                         ->label('Estas embarazada?')
-                        ->reactive()
                         ->inline(false)
-                        ->columnSpan(1)
                         ->hidden(fn (Closure $get) => $get('sexo') !== 'F'),
-                    Forms\Components\TextInput::make('meses_em')
-                        ->label('¿Cuantos meses de embarazo tienes?')
-                        ->columnSpan(1)
-                        ->hidden(fn (Closure $get) => $get('embarazo') !== true),   
                 Forms\Components\TextInput::make('email')->email()
                         ->required(),
                 Forms\Components\TextInput::make('telefono')
