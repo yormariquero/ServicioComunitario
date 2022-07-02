@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('telefono_emer')->nullable();
             $table->string('direccion')->nullable();
             $table->string('semestre')->nullable();
-            $table->json('materias')->nullable();
             $table->boolean('discapacidad')->nullable();
             $table->string('tipo_discapacidad')->nullable();
             $table->boolean('militar')->nullable();

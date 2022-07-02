@@ -165,7 +165,7 @@ class MateriaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\StudentsRelationManager::class,
         ];
     }
     

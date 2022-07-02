@@ -20,7 +20,6 @@ class Student extends Model
         'telefono_emer',
         'direccion',
         'semestre',
-        'materias',
         'discapacidad',
         'tipo_discapacidad',
         'militar',
@@ -40,12 +39,7 @@ class Student extends Model
         'seccion',
     ];
 
-    
-    protected $casts = [
-        'materias' => 'array',
-        //'fecha_na' => 'date',
-        
-    ];
+
 
     public function getDatosAttribute()
     {
@@ -55,8 +49,8 @@ class Student extends Model
         return true;
     }
 
-     public function materia()
+    public function materias()
     {
-        return $this->belongsTo(Materia::class);
+        return $this->belongsToMany(Materia::class , 'student_materia', 'student_id', 'materia_id');
     }
 }
