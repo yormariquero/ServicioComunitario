@@ -17,5 +17,17 @@ class Materia extends Model
         'horasT',
         'horasP',
         'horasL',
+        'status',
+        'horario',
     ];
+
+    public function student()
+    {
+        return $this->hasMany(Student::class);
+    }
+
+    public function teacher()
+    {
+        return $this->hasMany(Teacher::class);
+    }
 }

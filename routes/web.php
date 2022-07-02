@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use App\Models\Student;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/student/export', [StudentController::class, 'exportAllStudents'])->name('student.export');
 
 Route::middleware([
     'auth:sanctum',

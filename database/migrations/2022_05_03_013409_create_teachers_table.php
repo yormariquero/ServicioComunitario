@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Materia;
 
 return new class extends Migration
 {
@@ -17,11 +18,17 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('apellido');
-            $table->string('cedula');
-            $table->string('email');
-            $table->string('telefono');
-            $table->string('direccion');
+            $table->string('tipo_documento');
+            $table->string('numero_documento');
+            $table->string('email')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('categoria')->nullable();
+            $table->string('horas_trabajo')->nullable();
+            $table->string('status')->nullable();
+            $table->date('fecha_na')->nullable();
             $table->string('foto')->nullable();
+            $table->json('materias')->nullable();
             $table->timestamps();
         });
     }
@@ -36,3 +43,4 @@ return new class extends Migration
         Schema::dropIfExists('teachers');
     }
 };
+

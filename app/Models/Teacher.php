@@ -12,10 +12,25 @@ class Teacher extends Model
     protected $fillable = [
         'nombre',
         'apellido',
-        'cedula',
+        'tipo_documento',
+        'numero_documento',
         'email',
         'telefono',
         'direccion',
         'foto',
+        'categoria',
+        'materias',
+        'horas_trabajo',
+        'status',
+        'fecha_na',
+        //'materia_id'
     ];
+
+    protected $cast = [
+
+        'materias' => 'array',
+        //'fecha_na' => 'date',
+    ];
+
+
 }

@@ -5,13 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class Incidencias extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'titulo',
-        'dominio',
+        'fecha',
+        'tipo_in',
         'descripcion',
+        'status',
+    ];
+
+    protected $casts = [
+        //'fecha' => 'date',
+        
     ];
 }
+
