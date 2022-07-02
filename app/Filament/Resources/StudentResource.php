@@ -152,17 +152,14 @@ class StudentResource extends Resource
                 Forms\Components\Toggle::make('siceu')
                         ->label('¿Estas inscrito en el SICEU?')
                         ->inline(false),
-                Forms\Components\Repeater::make('materias')
-                        ->label('Materias que inscribiste')
-                        ->schema([
-                            Forms\Components\Select::make('materia')
-                                    ->options(Materia::all()->pluck('nombre', 'nombre')),
-                                 ])
-                                ->columns(1)
-                                ->createItemButtonLabel('Otra'),     
+               
+                Forms\Components\MultiSelect::make('materias')
+                    ->relationship('materias', 'nombre')
+                    ->options(Materia::all()->pluck('nombre', 'id')),
+                              
                 Forms\Components\Textarea::make('observacion')
                         ->label('Observación'),
-            ]);
+                ]);
     }
 
     public static function table(Table $table): Table
@@ -347,7 +344,7 @@ class StudentResource extends Resource
     public static function getRelations(): array
     {
         return [ 
-            //
+            RelationManagers\MateriasRelationManager::class,
         ];
     }
     

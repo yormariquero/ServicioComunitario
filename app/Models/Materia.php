@@ -21,13 +21,8 @@ class Materia extends Model
         'horario',
     ];
 
-    public function student()
+    public function students()
     {
-        return $this->hasMany(Student::class);
-    }
-
-    public function teacher()
-    {
-        return $this->hasMany(Teacher::class);
+        return $this->belongsToMany(Student::class , 'student_materia', 'student_id', 'materia_id');
     }
 }
