@@ -32,5 +32,8 @@ class Teacher extends Model
         //'fecha_na' => 'date',
     ];
 
-
+    public function materia()
+    {
+        return $this->belongsTo(Materia::class);
+    }
 }

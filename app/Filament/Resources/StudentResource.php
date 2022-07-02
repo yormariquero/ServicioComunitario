@@ -156,7 +156,7 @@ class StudentResource extends Resource
                         ->label('Materias que inscribiste')
                         ->schema([
                             Forms\Components\Select::make('materia')
-                                    ->options(Materia::all()->pluck('nombre', 'nombre')),
+                                    ->options(Materia::all()->pluck('nombre', 'id')),
                                  ])
                                 ->columns(1)
                                 ->createItemButtonLabel('Otra'),     
