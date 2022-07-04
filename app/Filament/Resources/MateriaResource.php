@@ -21,6 +21,7 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\MultiSelectFilter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Wizard;
 
 class MateriaResource extends Resource
 {
@@ -34,13 +35,14 @@ class MateriaResource extends Resource
 
         ->schema([
 
-        Tabs::make('materia')
-            ->tabs([
-
-        Tabs\Tab::make('Datos Principales')
-            ->schema([
-
-                Forms\Components\Select::make('status')
+            Forms\Components\Card::make()
+                ->schema([
+                    Wizard::make([
+                        Wizard\Step::make('Datos Principales')
+                            ->description('Datos principales de la materia')
+                            ->icon('heroicon-o-academic-cap')
+                            ->schema([
+                                Forms\Components\Select::make('status')
                                 ->label('Status')
                                 ->options([
                                     'Profesor' => 'Profesor',
@@ -66,37 +68,38 @@ class MateriaResource extends Resource
                             '10' => '10',
                             ])
                             ->required(),
-                TextInput::make('UC')
-                ->numeric()
-                ->required(),
-            ])->extraAttributes(['class' => 'w-full']),
+                            TextInput::make('UC')
+                                ->numeric()
+                                ->required(),
+                            ]),
+                        Wizard\Step::make('Horas Academicas')
+                            ->description('Horas academicas de la materia')
+                            ->icon('heroicon-o-clock')
+                            ->schema([
+                                TextInput::make('horasT')
+                                    ->numeric()
+                                    ->required(),
+                                TextInput::make('horasP')
+                                    ->numeric()
+                                    ->required(),
+                                TextInput::make('horasL')
+                                    ->numeric()
+                                    ->required(),
+                            ]),
+                        Wizard\Step::make('Horario')
+                            ->description('Horario de la materia')
+                            ->icon('heroicon-o-photograph')
+                            ->schema([
+                                Forms\Components\FileUpload::make('horario')
+                                    ->image()
+                                    ->label('Horario'),
+                            ]),
+                        ])->columns(2),
+                    ]),
 
-            Tabs\Tab::make('Horas')
-                ->schema([
+           
 
-                TextInput::make('horasT')
-                ->numeric()
-                ->required(),
-                TextInput::make('horasP')
-                ->numeric()
-                ->required(),
-                TextInput::make('horasL')
-                ->numeric()
-                ->required(),
-
-            ])->extraAttributes(['class' => 'w-full']),
-
-
-            Tabs\Tab::make('Horario')
-                ->schema([
-
-                Forms\Components\FileUpload::make('horario')
-                    ->image()
-                    ->label('Horario'),
-
-                ])->extraAttributes(['class' => 'w-full']),
-
-            ])
+        
 
            ]);
     }
