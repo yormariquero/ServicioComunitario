@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\MultiSelectFilter;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\Tabs;
 
 class MateriaResource extends Resource
 {
@@ -30,7 +31,15 @@ class MateriaResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+
+        ->schema([
+
+        Tabs::make('materia')
+            ->tabs([
+
+        Tabs\Tab::make('Datos Principales')
             ->schema([
+
                 Forms\Components\Select::make('status')
                                 ->label('Status')
                                 ->options([
@@ -60,6 +69,11 @@ class MateriaResource extends Resource
                 TextInput::make('UC')
                 ->numeric()
                 ->required(),
+            ])->extraAttributes(['class' => 'w-full']),
+
+            Tabs\Tab::make('Horas')
+                ->schema([
+
                 TextInput::make('horasT')
                 ->numeric()
                 ->required(),
@@ -69,11 +83,22 @@ class MateriaResource extends Resource
                 TextInput::make('horasL')
                 ->numeric()
                 ->required(),
+
+            ])->extraAttributes(['class' => 'w-full']),
+
+
+            Tabs\Tab::make('Horario')
+                ->schema([
+
                 Forms\Components\FileUpload::make('horario')
                     ->image()
                     ->label('Horario'),
 
-            ]);
+                ])->extraAttributes(['class' => 'w-full']),
+
+            ])
+
+           ]);
     }
 
     public static function table(Table $table): Table
@@ -153,15 +178,6 @@ class MateriaResource extends Resource
 
                 ExportBulkAction::make('Descargar Registro')->icon('heroicon-s-cloud-download')
 
-            ])
-            ->actions([
-                
-                //Tables\Actions\Action::make('ver')
-                    //->label('Ver')
-                    //->url(fn (Materia $record): string => route('filament.resources.materias.ver-materia', $record))
-                    //->icon('heroicon-s-eye'),
-
-                Tables\Actions\EditAction::make(),
             ]);
     }
     
@@ -179,7 +195,6 @@ class MateriaResource extends Resource
             'index' => Pages\ListMaterias::route('/'),
             'create' => Pages\CreateMateria::route('/create'),
             'edit' => Pages\EditMateria::route('/{record}/edit'),
-            //'ver-materia' => Pages\VerMateria::route('/{record}/ver'),
 
         ];
     }
