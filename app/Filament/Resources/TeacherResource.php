@@ -78,15 +78,9 @@ class TeacherResource extends Resource
                         'MT' => 'Medio Tiempo',
                         'I' => 'Instructor'
                     ]),
-                Forms\Components\Repeater::make('materias')
-                        ->schema([
-                Forms\Components\Select::make('materias')
-                            //->required()
-                            ->label('Materia')
-                            ->options(Materia::all()->pluck('nombre', 'id')),
-                    ])
-                    ->columns(1)
-                    ->createItemButtonLabel('Añadir Materia'),
+                Forms\Components\MultiSelect::make('materias')
+                    ->relationship('materias', 'nombre')
+                    ->options(Materia::all()->pluck('nombre', 'id')),
                 Forms\Components\FileUpload::make('foto')
                     ->image()
                     ->label('Cedula'),
@@ -185,7 +179,7 @@ class TeacherResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\MateriasRelationManager::class,
         ];
     }
 

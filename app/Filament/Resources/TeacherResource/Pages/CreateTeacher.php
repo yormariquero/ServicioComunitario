@@ -27,14 +27,13 @@ class CreateTeacher extends CreateRecord
             'direccion' => $data['direccion'],
             'foto' => $data['foto'],
             'categoria' => $data['categoria'],
-            'materias' => json_encode($data['materias']),
             'horas_trabajo' => $data['horas_trabajo'],
             'status' => $data['status'],
             'fecha_na' => $data['fecha_na'],
 
         ]);
 
-        $this->notify('success', 'Profesor Creado');
+        //$this->notify('success', 'Profesor Creado');
        //return $teacher;
         //return redirect()->route('filament.resources.teachers.ver-profesor', ['record' => $teacher]);
 

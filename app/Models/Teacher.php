@@ -19,21 +19,22 @@ class Teacher extends Model
         'direccion',
         'foto',
         'categoria',
-        'materias',
         'horas_trabajo',
         'status',
         'fecha_na',
         //'materia_id'
     ];
 
-    protected $cast = [
-
-        'materias' => 'array',
-        //'fecha_na' => 'date',
-    ];
-
-    public function materia()
+    public function getDatosAttribute()
     {
-        return $this->belongsTo(Materia::class);
+        if (empty($this->attributes['materias'])) {
+            return false;
+        }
+        return true;
+    }
+
+    public function materias()
+    {
+        return $this->belongsToMany(Materia::class , 'teacher_materia', 'teacher_id', 'materia_id');
     }
 }

@@ -166,6 +166,7 @@ class MateriaResource extends Resource
     {
         return [
             RelationManagers\StudentsRelationManager::class,
+            RelationManagers\TeachersRelationManager::class,
         ];
     }
     

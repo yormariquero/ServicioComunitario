@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\StudentResource\RelationManagers;
+namespace App\Filament\Resources\TeacherResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -9,6 +9,8 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use Illuminate\Database\Eloquent\Collection;
 
 class MateriasRelationManager extends RelationManager
 {
@@ -53,12 +55,11 @@ class MateriasRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DetachAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
+                ExportBulkAction::make('Descargar Registro')->icon('heroicon-s-cloud-download'),
                 Tables\Actions\DetachBulkAction::make(),
-                Tables\Actions\DeleteBulkAction::make(),
+                //Tables\Actions\DeleteBulkAction::make(),
             ]);
     }    
 }

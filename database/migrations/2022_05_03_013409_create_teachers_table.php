@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->date('fecha_na')->nullable();
             $table->string('foto')->nullable();
-            $table->json('materias')->nullable();
             $table->timestamps();
         });
     }
