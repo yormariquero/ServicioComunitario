@@ -84,20 +84,21 @@ class StudentResource extends Resource
                             'M' => 'Masculino',
                             'F' => 'Femenino',
                         ]),
-                    Forms\Components\Toggle::make('embarazo')
-                        ->label('Estas embarazada?')
+                Forms\Components\Toggle::make('embarazo')
+                        ->label('¿Estas embarazada?')
                         ->inline(false)
                         ->hidden(fn (Closure $get) => $get('sexo') !== 'F'),
-                Forms\Components\TextInput::make('email')->email()
+                Forms\Components\TextInput::make('email')
+                        ->email()
                         ->required(),
                 Forms\Components\TextInput::make('telefono')
                         ->numeric()
                         ->required(),
-                Forms\Components\TextInput::make('direccion')
-                        ->required(),
                 Forms\Components\TextInput::make('telefono_emer')
                         ->numeric()
                         ->label('Número de Contacto en caso de Emergencia')
+                        ->required(),
+                Forms\Components\TextInput::make('direccion')
                         ->required(),
                 Forms\Components\Toggle::make('discapacidad')
                         ->label('¿Posees alguna discapacidad?')

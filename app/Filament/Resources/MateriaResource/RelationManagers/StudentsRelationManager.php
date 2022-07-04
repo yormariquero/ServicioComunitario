@@ -9,6 +9,8 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use Illuminate\Database\Eloquent\Collection;
 
 class StudentsRelationManager extends RelationManager
 {
@@ -30,7 +32,24 @@ class StudentsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nombre'),
+                Tables\Columns\TextColumn::make('tipo_documento')
+                ->label('Tipo'),
+                Tables\Columns\TextColumn::make('numero_documento')
+                ->label('Documento'),
+                Tables\Columns\TextColumn::make('nombre')
+                ->label('Nombres'),
+                Tables\Columns\TextColumn::make('apellido')
+                ->label('Apellidos'),
+                Tables\Columns\TextColumn::make('semestre')
+                ->label('Semestre'),
+                Tables\Columns\TextColumn::make('seccion')
+                ->label('Sección'),
+                Tables\Columns\BooleanColumn::make('siceu')
+                ->label('SICEU'),
+                Tables\Columns\TextColumn::make('email')
+                ->label('Correo'),
+                Tables\Columns\TextColumn::make('telefono')
+                ->label('Telefono'),
             ])
             ->filters([
                 //
@@ -41,12 +60,13 @@ class StudentsRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DetachAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                //Tables\Actions\DetachAction::make(),
+                //Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
+                ExportBulkAction::make('Descargar Registro')->icon('heroicon-s-cloud-download'),
                 Tables\Actions\DetachBulkAction::make(),
-                Tables\Actions\DeleteBulkAction::make(),
+                //Tables\Actions\DeleteBulkAction::make(),
             ]);
     }    
 }

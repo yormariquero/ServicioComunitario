@@ -21,8 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/student/export', [StudentController::class, 'exportAllStudents'])->name('student.export');
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

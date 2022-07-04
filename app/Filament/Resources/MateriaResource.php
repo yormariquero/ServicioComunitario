@@ -155,10 +155,13 @@ class MateriaResource extends Resource
 
             ])
             ->actions([
-                Tables\Actions\Action::make('ver')
-                    ->label('Ver')
-                    ->url(fn (Materia $record): string => route('filament.resources.materias.ver-materia', $record))
-                    ->icon('heroicon-s-eye'),
+                
+                //Tables\Actions\Action::make('ver')
+                    //->label('Ver')
+                    //->url(fn (Materia $record): string => route('filament.resources.materias.ver-materia', $record))
+                    //->icon('heroicon-s-eye'),
+
+                Tables\Actions\EditAction::make(),
             ]);
     }
     
@@ -176,7 +179,7 @@ class MateriaResource extends Resource
             'index' => Pages\ListMaterias::route('/'),
             'create' => Pages\CreateMateria::route('/create'),
             'edit' => Pages\EditMateria::route('/{record}/edit'),
-            'ver-materia' => Pages\VerMateria::route('/{record}/ver'),
+            //'ver-materia' => Pages\VerMateria::route('/{record}/ver'),
 
         ];
     }
