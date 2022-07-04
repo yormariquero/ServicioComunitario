@@ -23,11 +23,11 @@ class Materia extends Model
 
     public function students()
     {
-        return $this->belongsToMany(Student::class , 'student_materia', 'student_id', 'materia_id');
+        return $this->belongsToMany(Student::class , 'student_materia');
     }
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class , 'teacher_materia', 'teacher_id', 'materia_id');
+        return $this->belongsToMany(Teacher::class , 'teacher_materia');
     }
 }

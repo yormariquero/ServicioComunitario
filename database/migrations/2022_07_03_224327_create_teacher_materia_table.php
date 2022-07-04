@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('teacher_materia', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->constrained();
-            $table->foreignId('materia_id')->constrained();
+            $table->foreignId('teacher_id')->constrained()->onDelete('cascade');
+            $table->foreignId('materia_id')->constrained()->onDelete('cascade');
             $table->timestamps(); 
 
         });
