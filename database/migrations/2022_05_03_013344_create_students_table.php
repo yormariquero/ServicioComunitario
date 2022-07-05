@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('numero_documento');
             $table->string('email');
             $table->string('telefono')->nullable();
-            $table->string('telefono_emer')->nullable();
+            $table->string('telefono_emer')->different('telefono')->nullable();
             $table->string('direccion')->nullable();
             $table->string('semestre')->nullable();
             $table->boolean('discapacidad')->nullable();

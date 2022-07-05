@@ -22,6 +22,7 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\MultiSelectFilter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Collection;
+use Filament\Forms\Components\Wizard; 
 
 
 class StudentResource extends Resource
@@ -34,26 +35,15 @@ class StudentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Toggle::make('delegado')
-                        ->label('¿Eres Delegado de Curso?')
-                        ->reactive()
-                        ->inline(false),
-                Forms\Components\Select::make('tipo_delegado')
-                                ->label('Puesto del Delegado')
-                                ->options([
-                                    'Comandante' => 'Comandante de Curso',
-                                    'Sub-Comandante' => 'Sub-Comandante de Curso',
-                                ])
-                         ->columnSpan(1)        
-                        ->hidden(fn (Closure $get) => $get('delegado') !== true), 
-                Forms\Components\Select::make('status')
-                                ->label('Status del Estudiante')
-                                ->options([
-                                    'Regular' => 'Regular',
-                                    'Resagado' => 'Resagado',
-                                    'Suspendido' => 'Suspendido',
-                                ])
-                                ->required(),
+
+            Forms\Components\Card::make()
+                ->schema([
+                    Wizard::make([
+                        Wizard\Step::make('Datos Personales')
+                            ->description('Datos Personales del Estudiante')
+                            ->icon('heroicon-o-user-add')
+                            ->schema([
+                    
                 Forms\Components\TextInput::make('nombre')
                 ->label('Nombres')
                 ->required(),
@@ -96,6 +86,7 @@ class StudentResource extends Resource
                         ->required(),
                 Forms\Components\TextInput::make('telefono_emer')
                         ->numeric()
+                        ->different('telefono')
                         ->label('Número de Contacto en caso de Emergencia')
                         ->required(),
                 Forms\Components\TextInput::make('direccion')
@@ -111,9 +102,39 @@ class StudentResource extends Resource
                 Forms\Components\Toggle::make('militar')
                         ->label('¿Eres Militar?')
                         ->inline(false),
+
+                ]),
+
+                Wizard\Step::make('Datos Academicos')
+                            ->description('Dtos Academicos del Estudiante')
+                            ->icon('heroicon-o-book-open')
+                            ->schema([
+                Forms\Components\Toggle::make('delegado')
+                        ->label('¿Eres Delegado de Curso?')
+                        ->reactive()
+                        ->inline(false),
+                Forms\Components\Select::make('tipo_delegado')
+                                ->label('Puesto del Delegado')
+                                ->options([
+                                    'Comandante' => 'Comandante de Curso',
+                                    'Sub-Comandante' => 'Sub-Comandante de Curso',
+                                ])
+                            ->columnSpan(1)        
+                            ->hidden(fn (Closure $get) => $get('delegado') !== true), 
+                Forms\Components\Select::make('status')
+                                ->label('Status del Estudiante')
+                                ->options([
+                                    'Regular' => 'Regular',
+                                    'Resagado' => 'Resagado',
+                                    'Suspendido' => 'Suspendido',
+                                ])
+                                ->required(),
                 Forms\Components\TextInput::make('ingreso')
                         ->label('Fecha de ingreso')
                         ->required(),  
+                Forms\Components\Toggle::make('siceu')
+                        ->label('¿Estas inscrito en el SICEU?')
+                        ->inline(false),
                 Forms\Components\Toggle::make('cambio_carrera')
                         ->label('¿Has realizado cambio de carrera?')
                         ->inline(false),
@@ -123,6 +144,13 @@ class StudentResource extends Resource
                 Forms\Components\Toggle::make('cambio_nucleo')
                         ->label('¿Has realizado cambio de nucleo?')
                         ->inline(false),
+                ]),
+
+
+                 Wizard\Step::make('Pre-inscripción')
+                            ->description('Pre-inscripción del Estudiante')
+                            ->icon('heroicon-o-document-add')
+                            ->schema([
                 Forms\Components\Select::make('semestre')
                                 ->options([
                                     '0' => '0',
@@ -144,17 +172,22 @@ class StudentResource extends Resource
                 Forms\Components\TextInput::make('periodo_actual')
                         ->label('Periodo academico actual')
                         ->required(),
-                Forms\Components\Toggle::make('siceu')
-                        ->label('¿Estas inscrito en el SICEU?')
-                        ->inline(false),
-               
                 Forms\Components\MultiSelect::make('materias')
                     ->relationship('materias', 'nombre')
                     ->options(Materia::all()->pluck('nombre', 'id')),
                               
                 Forms\Components\Textarea::make('observacion')
                         ->label('Observación'),
-                ]);
+                
+                                ]),
+                        
+                    ])->columns(2),
+                    
+                ]),
+
+
+
+            ]);
     }
 
     public static function table(Table $table): Table

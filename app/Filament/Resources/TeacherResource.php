@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\MultiSelectFilter;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\Wizard;
 
 class TeacherResource extends Resource
 {
@@ -31,13 +32,13 @@ class TeacherResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('status')
-                                ->label('Status del Docente')
-                                ->options([
-                                    'Activo' => 'Activo',
-                                    'Inactivo' => 'Inactivo',
-                                ])
-                                ->required(),
+                Forms\Components\Card::make()
+                ->schema([
+                    Wizard::make([
+                        Wizard\Step::make('Datos Personales')
+                            ->description('Datos principales del Docente')
+                            ->icon('heroicon-o-user-add')
+                            ->schema([
                 Forms\Components\TextInput::make('nombre')
                         ->required()
                         ->label('Nombres'),
@@ -68,7 +69,20 @@ class TeacherResource extends Resource
                         ->numeric()
                         ->required(),
                 Forms\Components\TextInput::make('direccion')
-                        ->required(), 
+                        ->required(),
+                    ]),
+
+                Wizard\Step::make('Datos Laborales')
+                            ->description('Datos Laborales del Docente')
+                            ->icon('heroicon-o-briefcase')
+                            ->schema([
+                Forms\Components\Select::make('status')
+                                ->label('Status del Docente')
+                                ->options([
+                                    'Activo' => 'Activo',
+                                    'Inactivo' => 'Inactivo',
+                                ])
+                                ->required(),
                 Forms\Components\Select::make('categoria')
                     ->required()
                     ->options([
@@ -81,25 +95,24 @@ class TeacherResource extends Resource
                 Forms\Components\MultiSelect::make('materias')
                     ->relationship('materias', 'nombre')
                     ->options(Materia::all()->pluck('nombre', 'id')),
-                Forms\Components\FileUpload::make('foto')
-                    ->image()
-                    ->label('Cedula'),
                 Forms\Components\TextInput::make('horas_trabajo')
                     ->numeric()
                     ->label('Horas de Trabajo')
                     ->required()
-            ]);
+                    ]),
+
+                ])->columns(2),
+
+            ]),
+
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('foto')
-                ->rounded()
-                ->toggleable()
-                ->label('Cedula')
-                ->size(50),
+                
                 Tables\Columns\BadgeColumn::make('status')
                 ->colors([
                 'primary',

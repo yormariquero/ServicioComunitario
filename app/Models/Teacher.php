@@ -17,7 +17,6 @@ class Teacher extends Model
         'email',
         'telefono',
         'direccion',
-        'foto',
         'categoria',
         'horas_trabajo',
         'status',
