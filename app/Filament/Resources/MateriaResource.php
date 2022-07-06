@@ -70,6 +70,7 @@ class MateriaResource extends Resource
                             ->required(),
                             TextInput::make('UC')
                                 ->numeric()
+                                ->label('UC')
                                 ->required(),
                             ]),
                         Wizard\Step::make('Horas Academicas')
@@ -86,19 +87,9 @@ class MateriaResource extends Resource
                                     ->numeric()
                                     ->required(),
                             ]),
-                        Wizard\Step::make('Horario')
-                            ->description('Horario de la materia')
-                            ->icon('heroicon-o-photograph')
-                            ->schema([
-                                Forms\Components\FileUpload::make('horario')
-                                    ->image()
-                                    ->label('Horario'),
-                            ]),
+                       
                         ])->columns(2),
                     ]),
-
-           
-
         
 
            ]);
@@ -108,11 +99,6 @@ class MateriaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('horario')
-                ->rounded()
-                ->toggleable()
-                ->label('Horario')
-                ->size(50),
                 Tables\Columns\TextColumn::make('codigo')
                 ->searchable()
                 ->toggleable()
@@ -133,15 +119,15 @@ class MateriaResource extends Resource
                 Tables\Columns\TextColumn::make('horasT')
                 ->searchable()
                 ->toggleable()
-                ->label('Horas Teorica'),
+                ->label('Horas T'),
                 Tables\Columns\TextColumn::make('horasP')
                 ->searchable()
                 ->toggleable()
-                ->label('Horas Practica'),
+                ->label('Horas P'),
                 Tables\Columns\TextColumn::make('horasL')
                 ->searchable()
                 ->toggleable()
-                ->label('Horas Laboratorio'),
+                ->label('Horas L'),
                 Tables\Columns\BadgeColumn::make('status')
                 ->colors([
                 'primary',
