@@ -406,7 +406,7 @@ class MateriaSeeder extends Seeder
         ],
 
         [
-            'nombre' => 'OPTIMIZACIÓN NO LIENAL',
+            'nombre' => 'OPTIMIZACIÓN NO LINEAL',
             'codigo' => 'MAT-30935',
             'semestre' =>'6',
             'UC' => '5',

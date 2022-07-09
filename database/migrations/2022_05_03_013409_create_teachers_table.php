@@ -27,6 +27,9 @@ return new class extends Migration
             $table->string('horas_trabajo')->nullable();
             $table->string('status')->nullable();
             $table->date('fecha_na')->nullable();
+            $table->boolean('hijo')->nullable();
+            $table->string('cantidad_hijo')->nullable();
+            $table->string('antiguedad')->nullable();
             $table->timestamps();
         });
     }

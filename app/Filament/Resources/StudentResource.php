@@ -130,7 +130,7 @@ class StudentResource extends Resource
                                 ])
                                 ->required(),
                 Forms\Components\TextInput::make('ingreso')
-                        ->label('Fecha de ingreso')
+                        ->label('Periodo de ingreso')
                         ->required(),  
                 Forms\Components\Toggle::make('siceu')
                         ->label('¿Estas inscrito en el SICEU?')

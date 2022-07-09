@@ -11,6 +11,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Closure;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\BadgeColumn;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
@@ -70,6 +71,15 @@ class TeacherResource extends Resource
                         ->required(),
                 Forms\Components\TextInput::make('direccion')
                         ->required(),
+                Forms\Components\Toggle::make('hijo')
+                        ->label('¿Tiene Hijos?')
+                        ->reactive()
+                        ->inline(false),
+                Forms\Components\TextInput::make('cantidad_hijo')
+                            ->label('¿Cuantos Hijos tiene?')
+                            ->numeric()
+                            ->columnSpan(1)        
+                            ->hidden(fn (Closure $get) => $get('hijo') !== true), 
                     ]),
 
                 Wizard\Step::make('Datos Laborales')
@@ -92,13 +102,16 @@ class TeacherResource extends Resource
                         'MT' => 'Medio Tiempo',
                         'I' => 'Instructor'
                     ]),
+                Forms\Components\TextInput::make('antiguedad')
+                    ->label('Antiguedad')
+                    ->required(),
                 Forms\Components\MultiSelect::make('materias')
                     ->relationship('materias', 'nombre')
                     ->options(Materia::all()->pluck('nombre', 'id')),
                 Forms\Components\TextInput::make('horas_trabajo')
                     ->numeric()
                     ->label('Horas de Trabajo')
-                    ->required()
+                    ->required(),
                     ]),
 
                 ])->columns(2),
@@ -142,6 +155,14 @@ class TeacherResource extends Resource
                 ->searchable()
                 ->toggleable()
                 ->label('Fecha de Nacimiento'),
+                Tables\Columns\BooleanColumn::make('hijo')
+                ->searchable()
+                ->toggleable()
+                ->label('Hijos'),
+                Tables\Columns\TextColumn::make('cantidad_hijo')
+                ->searchable()
+                ->toggleable()
+                ->label('Cantidad de hijos'),
                 Tables\Columns\TextColumn::make('email')
                 ->searchable()
                 ->toggleable()
@@ -154,6 +175,10 @@ class TeacherResource extends Resource
                 ->searchable()
                 ->toggleable()
                 ->label('Categoria'),
+                Tables\Columns\TextColumn::make('antiguedad')
+                ->searchable()
+                ->toggleable()
+                ->label('Antiguedad'),
                 Tables\Columns\TextColumn::make('horas_trabajo')
                 ->searchable()
                 ->toggleable()
@@ -175,6 +200,7 @@ class TeacherResource extends Resource
                         'Activo' => 'Activo',
                         'Inactivo' => 'Inactivo',
                     ]),
+                TernaryFilter::make('hijo'),
             ])
             ->prependBulkActions([
 

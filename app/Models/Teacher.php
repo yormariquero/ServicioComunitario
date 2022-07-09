@@ -21,6 +21,9 @@ class Teacher extends Model
         'horas_trabajo',
         'status',
         'fecha_na',
+        'hijo',
+        'cantidad_hijo',
+        'antiguedad',
         //'materia_id'
     ];
 
