@@ -125,7 +125,7 @@ class StudentResource extends Resource
                                 ->label('Status del Estudiante')
                                 ->options([
                                     'Regular' => 'Regular',
-                                    'Resagado' => 'Resagado',
+                                    'Rezagado' => 'Rezagado',
                                     'Suspendido' => 'Suspendido',
                                 ])
                                 ->required(),
